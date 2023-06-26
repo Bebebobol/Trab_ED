@@ -32,6 +32,43 @@ int countNodes(Node* root)
     return 1 + l + r;
 }
 
+int MorrisTraversal(Node* head, int num)
+{
+    int num = num
+    int arr;
+    
+    if (root == NULL)
+        return;
+ 
+    Node* current = head;
+    
+    for(int i = 0; i <= num; i++) {
+        if (current->left == NULL) {
+            int arr[i] = current->data;
+            current = current->right;
+        }
+        else {
+            Node* pre = current->left;
+            while (pre->right != NULL
+                   && pre->right != current) {
+                pre = pre->right;
+
+            if (pre->right == NULL) {
+                pre->right = current;
+                current = current->left;
+            }
+
+            else {
+                pre->right = NULL;
+                int arr[i] = current->data;
+                current = current->right;
+            } 
+        }
+    }
+    return arr;
+}
+
+
 
 
 Node* InsertNode(Node* head, int value) {
