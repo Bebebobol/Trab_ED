@@ -23,6 +23,14 @@ Node* createNode(int value) {
     return newNode;
 }
 
+int countNodes(Node* root)
+{
+ 
+    int l = coutNodes(head->left);
+    int r = countNodes(head->right);
+ 
+    return 1 + l + r;
+}
 
 
 
