@@ -130,23 +130,6 @@ void printInorder(Node* head)
     printInorder(head->right);
 }
 
-int InputArray(Node* head, int num){
-    int arr;
-    int num = num;
-    if(head == NULL){
-        return;
-    }
-    Node* temp = head;
-    for(int i = 0; i < num; i++) {
-        arr[i] = temp -> data;
-        temp = temp -> left;
-        temp -> right;
-    }
-
-    return arr;
-}
-
-
 Node* createBinaryTreeFromFile() {
 }
 
