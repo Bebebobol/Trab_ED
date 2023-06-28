@@ -68,7 +68,20 @@ int MorrisTraversal(Node* head, int num)
     return arr;
 }
 
-
+int print_height(Node* head) {
+    int l;
+    int r;
+    if (head == NULL){
+        return 0;
+    }
+    else {
+        int l = print_height(head->left);
+        int r = print_height(head->right);
+        if (l >= r)
+            return l + 1;
+        else
+            return r + 1;
+    }
 
 
 Node* InsertNode(Node* head, int value) {
