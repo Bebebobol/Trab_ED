@@ -32,17 +32,15 @@ int countNodes(Node* root)
     return 1 + l + r;
 }
 
-int MorrisTraversal(Node* head, int num)
-{
-    int num = num
+int MorrisTraversal(Node* head, int num){
     int arr;
     
-    if (root == NULL)
-        return;
- 
+    if (head == NULL){
+        return 0;
+    }
     Node* current = head;
     
-    for(int i = 0; i <= num; i++) {
+    for(int i = 0; i < num; i++) {
         if (current->left == NULL) {
             int arr[i] = current->data;
             current = current->right;
@@ -57,15 +55,16 @@ int MorrisTraversal(Node* head, int num)
                 pre->right = current;
                 current = current->left;
             }
-
             else {
                 pre->right = NULL;
                 int arr[i] = current->data;
                 current = current->right;
             } 
+            }
         }
     }
     return arr;
+    
 }
 
 int print_height(Node* head) {
@@ -82,6 +81,52 @@ int print_height(Node* head) {
         else
             return r + 1;
     }
+
+}
+
+int print_height(Node* head) {
+    int l;
+    int r;
+    Node* temp = head;
+    if(head == NULL){
+        return 0;
+    }
+    else {
+        int l = print_height(temp->left);
+        int r = print_height(temp->right);
+        if (l >= r)
+            return l + 1;
+        else
+            return r + 1;
+    }
+}
+
+
+
+int leafnum(Node* head){
+    if(head == NULL)    
+        return 0;
+    if(head->left == NULL && head->right == NULL)
+        return 1;        
+    else
+        return leafnum(head->left)+
+            leafnum(head->right);
+}
+
+bool Check_perfect(Node* head, int height, int leafnum) {
+    if (head == NULL) {
+        return false;
+    }
+    else if(height == 1 && leafnum == 1) {
+        return true;
+    }
+    else if (leafnum == pow(2, height - 1)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 
 Node* InsertNode(Node* head, int value) {
