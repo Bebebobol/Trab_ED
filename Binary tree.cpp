@@ -212,9 +212,12 @@ void mainMenu() {
                 cout << "Processing time: " << time << " seconds" << endl;
                 break;
             }
-            case 2:
+            case 2:{
                 createBinaryTreeFromFile();
+                double time = printProcessingTime(createBinaryTreeFromFile);
+                cout << "Processing time: " << time << " seconds" << endl;
                 break;
+            }
             case 3:
                 cout << "Exiting the program..." << endl;
                 return;
