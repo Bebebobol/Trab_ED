@@ -178,6 +178,21 @@ void printInorder(Node* head)
 Node* createBinaryTreeFromFile() {
 }
 
+double printProcessingTime(function<void()> func) {
+    //get inicial time
+    auto startTime = high_resolution_clock::now(); 
+
+    func();
+
+    //ending time
+    auto endTime = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(endTime - startTime);
+
+    return duration.count() / 1000000.0; //in seconds
+}
+
+
 void mainMenu() {
     while (true) {
         cout << "Binary Tree Menu:" << endl;
