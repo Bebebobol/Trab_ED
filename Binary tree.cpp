@@ -206,9 +206,12 @@ void mainMenu() {
         cin >> choice;
 
         switch (choice) {
-            case 1:
+            case 1:{
                 createBinaryTreeManual();
+                double time = printProcessingTime(createBinaryTreeManual);
+                cout << "Processing time: " << time << " seconds" << endl;
                 break;
+            }
             case 2:
                 createBinaryTreeFromFile();
                 break;
