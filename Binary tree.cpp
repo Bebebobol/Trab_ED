@@ -41,29 +41,29 @@ int* MorrisTraversal(Node* head, int num) { // Morris Traversal para a conversã
     Node* current = head; // Criação de temp
 
     for (int i = 0; i < num; i++) {
-        if (current->left == NULL) {
+        if (current->left == NULL) {// Preferência de traversal ao filho esquerdo.
             arr[i] = current->data;
             current = current->right;
         }
         else {
-            Node* pre = current->left;
-            while (pre->right != NULL && pre->right != current) {
+            Node* pre = current->left; // Cria um nó "precdente" a esquerda do nó atual
+            while (pre->right != NULL && pre->right != current) { // Verifica se há um nó a direita que não o nó pai
                 pre = pre->right;
             }
 
-            if (pre->right == NULL) {
-                pre->right = current;
+            if (pre->right == NULL) { // Caso não haja nó direito, transfomra o current no nó direito de seu predecessor
+                pre->right = current; // Visita a árvore esquerda
                 current = current->left;
             }
             else {
-                pre->right = NULL;
-                arr[i] = current->data;
-                current = current->right;
+                pre->right = NULL; // Caso a árvore direta já ttenha sido visitada, ou current é filho de pré, corta a "conexão" entre os dois 
+                arr[i] = current->data; // Armazena o valor do nó
+                current = current->right; // Retrocede a um nó mais alto
             }
         }
     }
 
-    return arr;
+    return arr; // Retorna o array
 }
 
 
@@ -74,44 +74,43 @@ void BFS(Node* head, int height) {
 
     cout << head->data << " ";
 
-    int currentLevelCount = 1;
+    int currentLevelCount = 1; // Altura atual
 
-    while (currentLevelCount <= height) {
-        if (head->left != NULL) {
+    while (currentLevelCount <= height) { // Enquanto altura inferior a altura máxima
+        if (head->left != NULL) { // Printa nó esquerdo
             cout << head->left->data << " ";
         }
-        if (head->right != NULL) {
+        if (head->right != NULL) { // Printa nó dreito
             cout << head->right->data << " ";
         }
 
-        currentLevelCount++;
+        currentLevelCount++; // Incrementa altura
 
 
-        if (head->left != NULL)
+        if (head->left != NULL)  // Avança para o próxim estágio
             head = head->left;
         else if (head->right != NULL)
             head = head->right;
         else
-            break;
+            break; // Quebra se não ouvveer mais nós
     }
 }
 
 
-void bubbleSort(int arr[])
+void bubbleSort(int arr[], int n)
 {
     int i, j;
-    int n = sizeof(arr) / sizeof(arr[0]);
-    bool swapped;
+    bool swapped; 
 
     for (i = 1; i < n ; i++) {
         swapped = false;
         for (j = 0; j < n - i ; j++) {
             if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
+                swap(arr[j], arr[j + 1]); // Caso haja troca swap cotinua
                 swapped = true;
             }
         }
-          if (swapped == false)
+          if (swapped == false) // break asso não haja mais trocca a serem feitas para este valor
             break;
     }
 }
@@ -123,12 +122,12 @@ int print_height(Node* head) {
         return 0;
     }
     else {
-        int l = print_height(head->left);
+        int l = print_height(head->left); // Recursivamente armazena a altura
         int r = print_height(head->right);
         if (l >= r)
-            return l + 1;
+            return l + 1; // Printa o esquerdo caso ele seja mais alto
         else
-            return r + 1;
+            return r + 1; // Printa o direito caso ele seja mais alto
     }
 
 }  
@@ -138,10 +137,13 @@ int print_height(Node* head) {
 void shellsort(int arr[], int count){
 
     int i, j, gap;
+    // Reduz o gap pela metade ao longo das iterações
         for (int gap = count / 2; gap > 0; gap /= 2) {
+            // Adiciona individualmente elementos até quee todos estejam organizados de acordo com esse elemento
             for (int i = gap; i < count; ++i) {
                 int temp = arr[i];
                 int j;
+                // Itera em cima de todos os elementos do array
                 for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
                     arr[j] = arr[j - gap];
                 }
@@ -156,9 +158,11 @@ void selectionSort(int arr[], int count)
 {
     int i, j;
     for (i = 0; i < count - 1; i++) {
+        // Itera o elemento selecionado j ao longo de todo o array i
         for (j = i + 1; j < count; j++) {
             if (arr[j] < arr[i])
-                swap(arr[j], arr[i])
+                // Troca de posição os dois lementos caso j < i
+                swap(arr[j], arr[i]);
         }
     }
 }
@@ -180,9 +184,11 @@ void insertionSort(int arr[], int count){
 int leafnum(Node* head){
     if(head == NULL)    
         return 0;
+    // Caso haja só a head retorne true
     if(head->left == NULL && head->right == NULL)
         return 1;        
     else
+    // Recursivamente conta o número de nós nas duas sub-árvores
         return leafnum(head->left)+
             leafnum(head->right);
 }
@@ -191,9 +197,11 @@ bool Check_perfect(Node* head, int height, int leafnum) {
     if (head == NULL) {
         return false;
     }
+    // Caso haja somente a root node a aravore é perfeita
     else if(height == 1 && leafnum == 1) {
         return true;
     }
+    // Verificca se há o número certo de folhas para a dáda alutra da árvore
     else if (leafnum == pow(2, height - 1)) {
         return true;
     }
@@ -204,6 +212,7 @@ bool Check_perfect(Node* head, int height, int leafnum) {
 
 
 Node* InsertNode(Node* head, int value) {
+    // Cria o nó root
     if (head == NULL) {
         head = createNode(value);
         return head;
@@ -211,10 +220,11 @@ Node* InsertNode(Node* head, int value) {
     } else {
         Node* temp = head;
         while (temp->left != NULL || temp->right != NULL) {
-            if (temp->data > value) {
+            if (temp->data > value) {  
                 if (temp->left != NULL) {
                     temp = temp->left;
                 } else {
+                    // Caso o filho esquerdo da folha esteja vazio
                     temp->left = createNode(value);
                     break;
                 }
@@ -222,11 +232,12 @@ Node* InsertNode(Node* head, int value) {
                 if (temp->right != NULL) {
                     temp = temp->right;
                 } else {
+                    // Caso o filho direio do nó esteja vazio
                     temp->right = createNode(value);
                     break;
                 }
             } else {
-                // Duplicate value, handle accordingly
+                // Evita valores duplicados encerrando a funçaõ caso o nó já tenha sido alocado
                 break;
             }
         }
@@ -239,13 +250,13 @@ void printInorder(Node* head)
     if (head == NULL)
         return;
  
-    // First recur on left child
+    // Recursivamente atravesa a árvore esquerda
     printInorder(head->left);
  
-    // Then print the data of node
+    // Printa o valor do nó
     printf("%d ", head->data);
  
-    // Now recur on right child
+    // Recursivamente atravessa a árvore direita
     printInorder(head->right);
 }
 
@@ -267,14 +278,16 @@ double printProcessingTime(function<void()> func) {
 }
 
 bool checkComplete ( Node* head, int index, int count)
-{
+{   // Caso a head seja o unico nó a áravore e completa
     if (head -> left == NULL && head -> right == NULL){
         return (true);
     }
+    // Caso o index ultrapasse o count então algum nó no penultim nivle não tem dois ffilhos 
     if (index >= count)
         return (false);
-    return (CheckComplete(head->left, 2*index + 1, count) &&
-            CheckComplete(head->right, 2*index + 2, count));
+        // Recursivamente verifica se o número de nós aumenta por log2
+    return (checkComplete(head->left, 2*index + 1, count) &&
+            checkComplete(head->right, 2*index + 2, count));
 }
 
 void mainMenu() {
