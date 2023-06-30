@@ -67,6 +67,25 @@ int MorrisTraversal(Node* head, int num){
     
 }
 
+void bubbleSort(int arr[])
+{
+    int i, j;
+    int n = sizeof(arr);
+    bool swapped;
+
+    for (i = 1; i < n ; i++) {
+        swapped = false;
+        for (j = 0; j < n - i ; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+          if (swapped == false)
+            break;
+    }
+}
+
 int print_height(Node* head) {
     int l;
     int r;
@@ -85,6 +104,23 @@ int print_height(Node* head) {
 }  
 
 
+
+void shellsort(int arr[]; int count){
+    int i, j, gap;
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < n; ++i) {
+                int temp = arr[i];
+                int j;
+                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                    arr[j] = arr[j - gap];
+                }
+                arr[j] = temp;
+            }
+        }
+}
+
+
+
 void selectionSort(int arr[], int count)
 {
     int i, j;
@@ -96,6 +132,17 @@ void selectionSort(int arr[], int count)
     }
 }
  
+void insertionSort(int arr[], int count){
+    
+    int i, j;
+    for (int i = 1; i < count; ++i) {
+            int j = i;
+    }
+        while (j > 0 && arr[j - 1] > arr[j]) {
+            swap(arr[j], arr[j - 1]);
+            j= j - 1;
+        }
+}
 
 
 
@@ -187,6 +234,7 @@ double printProcessingTime(function<void()> func) {
 
     return duration.count() / 1000000.0; //in seconds
 }
+
 
 
 void mainMenu() {
