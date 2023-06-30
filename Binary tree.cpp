@@ -7,15 +7,15 @@
 
 using namespace std;
 
-struct Node {
-    int data;
+struct Node {  // Estrutura do nó
+    int data; 
     Node* left;
     Node* right;
 };
 
 Node* createNode(int value) {
-    Node* newNode = new Node;
-    if (!newNode) {
+    Node* newNode = new Node; // Crie um novo elemento da estrutura
+    if (!newNode) { // Caso não seja possível criar devido há falta de memória
         cout << "Memory allocation failed!";
         return NULL;
     }
@@ -24,21 +24,21 @@ Node* createNode(int value) {
     return newNode;
 }
 
-int countNodes(Node* head){
-    int l = countNodes(head->left);
-    int r = countNodes(head->right);
+int countNodes(Node* head){ // Módulo de contagem de nós recursivo
+    int l = countNodes(head->left); // Conta sub-árvore esquerda
+    int r = countNodes(head->right); // Conta a direita
  
-    return 1 + l + r;
+    return 1 + l + r; // Retorna a soma das duas mais 1, devdio a não contabilização da root
 }
 
-int* MorrisTraversal(Node* head, int num) {
-    int* arr = new int[num];
+int* MorrisTraversal(Node* head, int num) { // Morris Traversal para a conversão da árvore para lista sem a usagem de biblíotecas adicionais
+    int* arr = new int[num]; // Ponteiro referente a array de tamnaho n elementos
 
-    if (head == NULL) {
+    if (head == NULL) { 
         return NULL;
     }
 
-    Node* current = head;
+    Node* current = head; // Criação de temp
 
     for (int i = 0; i < num; i++) {
         if (current->left == NULL) {
@@ -138,8 +138,8 @@ int print_height(Node* head) {
 void shellsort(int arr[], int count){
 
     int i, j, gap;
-        for (int gap = n / 2; gap > 0; gap /= 2) {
-            for (int i = gap; i < n; ++i) {
+        for (int gap = count / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < count; ++i) {
                 int temp = arr[i];
                 int j;
                 for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
@@ -155,8 +155,8 @@ void shellsort(int arr[], int count){
 void selectionSort(int arr[], int count)
 {
     int i, j;
-    for (i = 0; i < n - 1; i++) {
-        for (j = i + 1; j < n; j++) {
+    for (i = 0; i < count - 1; i++) {
+        for (j = i + 1; j < count; j++) {
             if (arr[j] < arr[i])
                 swap(arr[j], arr[i])
         }
@@ -273,8 +273,8 @@ bool checkComplete ( Node* head, int index, int count)
     }
     if (index >= count)
         return (false);
-    return (CheckComplete(root->left, 2*index + 1, count) &&
-            CheckComplete(root->right, 2*index + 2, count));
+    return (CheckComplete(head->left, 2*index + 1, count) &&
+            CheckComplete(head->right, 2*index + 2, count));
 }
 
 void mainMenu() {
