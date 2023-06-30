@@ -21,8 +21,9 @@ int MorrisTraversal(Node* head, int num);
 
 int print_height(Node* head);
 
-Node* Texfile();  // Matheus mude o nome da função de acordo com o seu módulo
+Node* convertFileToBST(const char* ccFilename)
 
+Node* convertSpaceToBreak(Node* sfileNums)
 
 
 #endif
