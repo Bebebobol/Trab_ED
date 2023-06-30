@@ -32,24 +32,25 @@ int countNodes(Node* head){
     return 1 + l + r;
 }
 
-int MorrisTraversal(Node* head, int num){
-    int arr;
-    
-    if (head == NULL){
+int MorrisTraversal(Node* head, int num) {
+    int arr[num];
+
+    if (head == NULL) {
         return 0;
     }
+
     Node* current = head;
-    
-    for(int i = 0; i < num; i++) {
+
+    for (int i = 0; i < num; i++) {
         if (current->left == NULL) {
-            int arr[i] = current->data;
+            arr[i] = current->data;
             current = current->right;
         }
         else {
             Node* pre = current->left;
-            while (pre->right != NULL
-                   && pre->right != current) {
+            while (pre->right != NULL && pre->right != current) {
                 pre = pre->right;
+            }
 
             if (pre->right == NULL) {
                 pre->right = current;
@@ -57,15 +58,45 @@ int MorrisTraversal(Node* head, int num){
             }
             else {
                 pre->right = NULL;
-                int arr[i] = current->data;
+                arr[i] = current->data;
                 current = current->right;
-            } 
             }
         }
     }
+
     return arr;
-    
 }
+
+
+
+void BFS(Node* head, int height) {
+    if (head == NULL)
+        return;
+
+    cout << head->data << " ";
+
+    int currentLevelCount = 1;
+
+    while (currentLevelCount <= height) {
+        if (head->left != NULL) {
+            cout << head->left->data << " ";
+        }
+        if (head->right != NULL) {
+            cout << head->right->data << " ";
+        }
+
+        currentLevelCount++;
+
+
+        if (head->left != NULL)
+            head = head->left;
+        else if (head->right != NULL)
+            head = head->right;
+        else
+            break;
+    }
+}
+
 
 void bubbleSort(int arr[])
 {
@@ -235,7 +266,16 @@ double printProcessingTime(function<void()> func) {
     return duration.count() / 1000000.0; //in seconds
 }
 
-
+bool checkComplete ( Node* head, int index, int count)
+{
+    if (head -> left == NULL && head -> right == NULL){
+        return (true);
+    }
+    if (index >= count)
+        return (false);
+    return (CheckComplete(root->left, 2*index + 1, count) &&
+            CheckComplete(root->right, 2*index + 2, count));
+}
 
 void mainMenu() {
     while (true) {
