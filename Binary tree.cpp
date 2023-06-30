@@ -2,6 +2,9 @@
 #include <fstream>
 #include <stack>
 #include <chrono>
+#include <string>
+#include <boost/algorithm/string.hpp> // header file contain all the functions of boost
+#include <bits/stdc++.h> // Using the Boost method to turn the line spaces into break lines
 
 
 
@@ -12,6 +15,13 @@ struct Node {  // Estrutura do nó
     Node* left;
     Node* right;
 };
+
+struct TextNode
+    {
+        string sWord;
+        TextNode* ptrLeft;
+        TextNode* ptrRight;
+    };
 
 Node* createNode(int value) {
     Node* newNode = new Node; // Crie um novo elemento da estrutura
@@ -260,7 +270,42 @@ void printInorder(Node* head)
     printInorder(head->right);
 }
 
-Node* createBinaryTreeFromFile() {
+TextNode* convertFileToBST(const char* ccFilename)
+    {
+        TextNode* sfileNums = nullptr;
+        string sWord;
+        ifstream file(ccFilename);
+        
+        if (file.is_open())
+        {
+            while (getline(file, sWord))
+            {
+                sfileNums = insertNode(sfileNums, sWord);
+            }
+        file.close();
+        }
+        
+        else
+        {
+            cout << "Failed to open the file." << endl;
+        }
+        
+        return sfileNums;
+    }
+    
+    TextNode* convertSpaceToBreak(Node* sfileNums)
+    {
+        string sconvertNums = sfileNums;
+        
+        vector<string> sVector; // sVector is the vector to store the substrings after splitting of the original string
+        
+        boost::split(sVector, sconvertNums, boost::is_any_of(" ")); // is_any_of(" ") returns true or false if space(" ") is present in the string or not
+        
+        for (int i = 0; i < sVector.size(); i++)
+        {
+            return sVector[i];
+        }
+    }
 }
 
 double printProcessingTime(function<void()> func) {
