@@ -25,18 +25,17 @@ Node* createNode(int value) {
 }
 
 int countNodes(Node* head){
-    Node* head = head
-    int l = coutNodes(head->left);
+    int l = countNodes(head->left);
     int r = countNodes(head->right);
  
     return 1 + l + r;
 }
 
-int MorrisTraversal(Node* head, int num) {
-    int arr[num];
+int* MorrisTraversal(Node* head, int num) {
+    int* arr = new int[num];
 
     if (head == NULL) {
-        return 0;
+        return NULL;
     }
 
     Node* current = head;
@@ -101,7 +100,7 @@ void BFS(Node* head, int height) {
 void bubbleSort(int arr[])
 {
     int i, j;
-    int n = sizeof(arr);
+    int n = sizeof(arr) / sizeof(arr[0]);
     bool swapped;
 
     for (i = 1; i < n ; i++) {
@@ -136,7 +135,8 @@ int print_height(Node* head) {
 
 
 
-void shellsort(int arr[]; int count){
+void shellsort(int arr[], int count){
+
     int i, j, gap;
         for (int gap = n / 2; gap > 0; gap /= 2) {
             for (int i = gap; i < n; ++i) {
@@ -301,7 +301,7 @@ void mainMenu() {
                 cout << "Processing time: " << time << " seconds" << endl;
                 break;
             }
-            case 3:
+               case 3:
                 cout << "Exiting the program..." << endl;
                 return;
             default:
