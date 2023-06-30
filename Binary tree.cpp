@@ -24,9 +24,8 @@ Node* createNode(int value) {
     return newNode;
 }
 
-int countNodes(Node* root)
-{
- 
+int countNodes(Node* head){
+    Node* head = head
     int l = coutNodes(head->left);
     int r = countNodes(head->right);
  
@@ -83,24 +82,20 @@ int print_height(Node* head) {
             return r + 1;
     }
 
-}
+}  
 
-int print_height(Node* head) {
-    int l;
-    int r;
-    Node* temp = head;
-    if(head == NULL){
-        return 0;
-    }
-    else {
-        int l = print_height(temp->left);
-        int r = print_height(temp->right);
-        if (l >= r)
-            return l + 1;
-        else
-            return r + 1;
+
+void selectionSort(int arr[], int count)
+{
+    int i, j;
+    for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[i])
+                swap(arr[j], arr[i])
+        }
     }
 }
+ 
 
 
 
