@@ -21,13 +21,13 @@ int MorrisTraversal(Node* head, int num);
 
 int print_height(Node* head);
 
-Node* createBinaryTreeManual(Node* root);
+Node* createBinaryTreeManual(Node* pRoot);
 
 Node* convertFileToBST(const char* ccFilename);
 
 Node* convertSpaceToBreak(Node* sfileNums);
 
-Node* deleteNode (Node* root, int value);
+Node* deleteNode (Node* pRoot, int nValue);
 
 
 #endif
