@@ -257,29 +257,29 @@ bool Check_perfect(Node* head, int height, int leafnum) {
 }*/
 
 //Alternativa para a InsertNode
-Node* InsertNode(Node* head, int value) {
-    if (head == NULL) {
-        head = createNode(value);
-        return head;
+Node* InsertNode(Node* pHead, int nValue) {
+    if (pHead == NULL) {
+        pHead = createNode(nValue);
+        return pHead;
     } 
 
-    Node* temp = head;
-    while (temp != NULL) {
-        if (value < temp->data) {
-            if (temp->left == NULL) {
+    Node* pTemp = pHead;
+    while (pTemp != NULL) {
+        if (nValue < pTemp->data) {
+            if (pTemp->left == NULL) {
                 // Caso o filho esquerdo da folha esteja vazio
-                temp->left = createNode(value);
+                pTemp->left = createNode(nValue);
                 break;
             } else {
-                temp = temp->left;
+                pTemp = pTemp->left;
             }
-        } else if (value > temp->data) {
-            if (temp->right == NULL) {
+        } else if (nValue > pTemp->data) {
+            if (pTemp->right == NULL) {
                 // Caso o filho direito da folha esteja vazio
-                temp->right = createNode(value);
+                pTemp->right = createNode(nValue);
                 break;
             } else {
-                temp = temp->right;
+                pTemp = pTemp->right;
             }
         } else {
             // Evita valores duplicados encerrando a funçaõ caso o nó já tenha sido alocado
@@ -287,7 +287,7 @@ Node* InsertNode(Node* head, int value) {
         }
     }
 
-    return head;
+    return pHead;
 }
 
 void printInorder(Node* head)
@@ -305,20 +305,20 @@ void printInorder(Node* head)
     printInorder(head->right);
 }
 
-Node* createBinaryTreeManual(Node* root) {
-    int n;
+Node* createBinaryTreeManual(Node* pRoot) {
+    int nTamanho;
     //Quantidade de nós que o usuário quer que a árvore tenha
     cout<<"Number of nodes: ";
-    cin>>n;
-    int escolhas[n];
-    //Recebe os valores dados pelo uusuário
+    cin>>nTamanho;
+    int arrEscolhas[nTamanho];
+    //Recebe os valores dados pelo usuário
     //e os insere na árvore
-    for (int i=0; i<n; i++) {
+    for (int i=0; i<nTamanho; i++) {
         cout<<"Chosen value "<<i+1<<": ";
-        cin>>escolhas[i];
-        root = InsertNode(root, escolhas[i]);
+        cin>>arrEscolhas[i];
+        pRoot = InsertNode(pRoot, arrEscolhas[i]);
     }
-    return root;
+    return pRoot;
 }
 
 TextNode* convertFileToBST(const char* ccFilename)
@@ -359,58 +359,58 @@ TextNode* convertFileToBST(const char* ccFilename)
     }
 }
 
-Node* deleteNode (Node* root, int value) {
+Node* deleteNode (Node* pRoot, int nValue) {
     // Caso de uma árvore vazia
-    if (root == NULL)
-        return root;
+    if (pRoot == NULL)
+        return pRoot;
  
     // Encontrar o nó a ser deletado
-    if (root->data > value) {
-        root->left = deleteNode(root->left, value);
-        return root;
+    if (pRoot->data > nValue) {
+        pRoot->left = deleteNode(pRoot->left, nValue);
+        return pRoot;
     }
-    else if (root->data < value) {
-        root->right = deleteNode(root->right, value);
-        return root;
+    else if (pRoot->data < nValue) {
+        pRoot->right = deleteNode(pRoot->right, nValue);
+        return pRoot;
     }
  
     // Quando o nó é encontrado
     // Se um dos filhos do nó é vazio
-    if (root->left == NULL) {
+    if (pRoot->left == NULL) {
         //
-        Node* temp = root->right;
-        delete root;
-        return temp;
+        Node* pTemp = pRoot->right;
+        delete pRoot;
+        return pTemp;
     }
-    else if (root->right == NULL) {
-        Node* temp = root->left;
-        delete root;
-        return temp;
+    else if (pRoot->right == NULL) {
+        Node* pTemp = pRoot->left;
+        delete pRoot;
+        return pTemp;
     }
  
     // Quando os dois filhos existem
     else {
         // Encontra o nó com o valor mínimo na subárvore direita
-        Node* parent = root;
-        Node* child = root->right;
-        while (child->left != NULL) {
-            parent = child;
-            child = child->left;
+        Node* pParent = pRoot;
+        Node* pChild = pRoot->right;
+        while (pChild->left != NULL) {
+            pParent = pChild;
+            pChild = pChild->left;
         }
 
         // Atualiza as referências dos nós para removê-lo corretamente
-        if (parent != root)
-            parent->left = child->right;
+        if (pParent != pRoot)
+            pParent->left = pChild->right;
         else
-            parent->right = child->right;
+            pParent->right = pChild->right;
  
         // Copia o valor do nó encontrado para o nó a ser excluído
-        root->data = child->data;
+        pRoot->data = pChild->data;
  
         // Libera a memória alocada para o nó encontrado
-        delete child;
+        delete pChild;
         // Retorna a raiz da árvore atualizada
-        return root;
+        return pRoot;
     }
 }
 
@@ -448,47 +448,47 @@ void mainMenu() {
         cout << "2. Create Binary Tree from File" << endl;
         cout << "3. Exit" << endl;
 
-        int choice;
+        int nChoice;
         cout << "Enter your choice (1-3): ";
-        cin >> choice;
+        cin >> nChoice;
 
-        switch (choice) {
+        switch (nChoice) {
             case 1:{
-                Node* root = nullptr;
-                Node* newRoot = createBinaryTreeManual(root);
-                printInorder(newRoot);
+                Node* pRoot = nullptr;
+                Node* pNewRoot = createBinaryTreeManual(pRoot);
+                printInorder(pNewRoot);
 
-                double time = printProcessingTime(createBinaryTreeManual);
-                cout << "Processing time: " << time << " seconds" << endl;
+                double dTime = printProcessingTime(createBinaryTreeManual);
+                cout << "Processing time: " << dTime << " seconds" << endl;
                 break;
             }
             case 2:{
                 createBinaryTreeFromFile();
-                double time = printProcessingTime(createBinaryTreeFromFile);
-                cout << "Processing time: " << time << " seconds" << endl;
+                double dTime = printProcessingTime(createBinaryTreeFromFile);
+                cout << "Processing time: " << dTime << " seconds" << endl;
                 break;
             }
             case 3:{
-                Node* root = nullptr;
-                int valores[7] = {6,4,8,5,3,9,7};
+                Node* pRoot = nullptr;
+                int arrValores[7] = {6,4,8,5,3,9,7};
                 for (int i=0;i<7;i++) {
-                    root = InsertNode(root, valores[i]);
+                    pRoot = InsertNode(pRoot, arrValores[i]);
                 }
                 cout<<"Original binary tree: ";
-                printInorder(root);
+                printInorder(pRoot);
                 cout<<endl;
 
-                int del;
+                int nDel;
                 cout<<"Choose a value to be removed: ";
-                cin>>del;
+                cin>>nDel;
 
-                Node* newRoot = deleteNode(root,del);
+                Node* pNewRoot = deleteNode(pRoot,nDel);
                 cout<<"New tree: ";
-                printInorder(newRoot);
+                printInorder(pNewRoot);
                 cout<<endl;
 
-                double time = printProcessingTime(deleteNode);
-                cout << "Processing time: " << time << " seconds" << endl;
+                double dTime = printProcessingTime(deleteNode);
+                cout << "Processing time: " << dTime << " seconds" << endl;
                 break;
             }
                case 4:
