@@ -221,7 +221,7 @@ bool Check_perfect(Node* head, int height, int leafnum) {
 }
 
 
-Node* InsertNode(Node* head, int value) {
+/*Node* InsertNode(Node* head, int value) {
     // Cria o nó root
     if (head == NULL) {
         head = createNode(value);
@@ -253,6 +253,40 @@ Node* InsertNode(Node* head, int value) {
         }
     }
     return head;
+}*/
+
+//Alternativa para a InsertNode
+Node* InsertNode(Node* head, int value) {
+    if (head == NULL) {
+        head = createNode(value);
+        return head;
+    } 
+
+    Node* temp = head;
+    while (temp != NULL) {
+        if (value < temp->data) {
+            if (temp->left == NULL) {
+                // Caso o filho esquerdo da folha esteja vazio
+                temp->left = createNode(value);
+                break;
+            } else {
+                temp = temp->left;
+            }
+        } else if (value > temp->data) {
+            if (temp->right == NULL) {
+                // Caso o filho direito da folha esteja vazio
+                temp->right = createNode(value);
+                break;
+            } else {
+                temp = temp->right;
+            }
+        } else {
+            // Evita valores duplicados encerrando a funçaõ caso o nó já tenha sido alocado
+            break;
+        }
+    }
+
+    return head;
 }
 
 void printInorder(Node* head)
@@ -268,6 +302,22 @@ void printInorder(Node* head)
  
     // Recursivamente atravessa a árvore direita
     printInorder(head->right);
+}
+
+Node* createBinaryTreeManual(Node* root) {
+    int n;
+    //Quantidade de nós que o usuário quer que a árvore tenha
+    cout<<"Número de nós: ";
+    cin>>n;
+    int escolhas[n];
+    //Recebe os valores dados pelo uusuário
+    //e os insere na árvore
+    for (int i=0; i<n; i++) {
+        cout<<"Valor escolhido "<<i+1<<": ";
+        cin>>escolhas[i];
+        root = InsertNode(root, escolhas[i]);
+    }
+    return root;
 }
 
 TextNode* convertFileToBST(const char* ccFilename)
