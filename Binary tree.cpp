@@ -3,6 +3,7 @@
 #include <stack>
 #include <chrono>
 #include <string>
+#include <cmath>
 #include <boost/algorithm/string.hpp> // header file contain all the functions of boost
 #include <bits/stdc++.h> // Using the Boost method to turn the line spaces into break lines
 
@@ -307,13 +308,13 @@ void printInorder(Node* head)
 Node* createBinaryTreeManual(Node* root) {
     int n;
     //Quantidade de nós que o usuário quer que a árvore tenha
-    cout<<"Número de nós: ";
+    cout<<"Number of nodes: ";
     cin>>n;
     int escolhas[n];
     //Recebe os valores dados pelo uusuário
     //e os insere na árvore
     for (int i=0; i<n; i++) {
-        cout<<"Valor escolhido "<<i+1<<": ";
+        cout<<"Chosen value "<<i+1<<": ";
         cin>>escolhas[i];
         root = InsertNode(root, escolhas[i]);
     }
@@ -358,6 +359,61 @@ TextNode* convertFileToBST(const char* ccFilename)
     }
 }
 
+Node* deleteNode (Node* root, int value) {
+    // Caso de uma árvore vazia
+    if (root == NULL)
+        return root;
+ 
+    // Encontrar o nó a ser deletado
+    if (root->data > value) {
+        root->left = deleteNode(root->left, value);
+        return root;
+    }
+    else if (root->data < value) {
+        root->right = deleteNode(root->right, value);
+        return root;
+    }
+ 
+    // Quando o nó é encontrado
+    // Se um dos filhos do nó é vazio
+    if (root->left == NULL) {
+        //
+        Node* temp = root->right;
+        delete root;
+        return temp;
+    }
+    else if (root->right == NULL) {
+        Node* temp = root->left;
+        delete root;
+        return temp;
+    }
+ 
+    // Quando os dois filhos existem
+    else {
+        // Encontra o nó com o valor mínimo na subárvore direita
+        Node* parent = root;
+        Node* child = root->right;
+        while (child->left != NULL) {
+            parent = child;
+            child = child->left;
+        }
+
+        // Atualiza as referências dos nós para removê-lo corretamente
+        if (parent != root)
+            parent->left = child->right;
+        else
+            parent->right = child->right;
+ 
+        // Copia o valor do nó encontrado para o nó a ser excluído
+        root->data = child->data;
+ 
+        // Libera a memória alocada para o nó encontrado
+        delete child;
+        // Retorna a raiz da árvore atualizada
+        return root;
+    }
+}
+
 double printProcessingTime(function<void()> func) {
     //get inicial time
     auto startTime = high_resolution_clock::now(); 
@@ -398,7 +454,10 @@ void mainMenu() {
 
         switch (choice) {
             case 1:{
-                createBinaryTreeManual();
+                Node* root = nullptr;
+                Node* newRoot = createBinaryTreeManual(root);
+                printInorder(newRoot);
+
                 double time = printProcessingTime(createBinaryTreeManual);
                 cout << "Processing time: " << time << " seconds" << endl;
                 break;
@@ -409,7 +468,30 @@ void mainMenu() {
                 cout << "Processing time: " << time << " seconds" << endl;
                 break;
             }
-               case 3:
+            case 3:{
+                Node* root = nullptr;
+                int valores[7] = {6,4,8,5,3,9,7};
+                for (int i=0;i<7;i++) {
+                    root = InsertNode(root, valores[i]);
+                }
+                cout<<"Original binary tree: ";
+                printInorder(root);
+                cout<<endl;
+
+                int del;
+                cout<<"Choose a value to be removed: ";
+                cin>>del;
+
+                Node* newRoot = deleteNode(root,del);
+                cout<<"New tree: ";
+                printInorder(newRoot);
+                cout<<endl;
+
+                double time = printProcessingTime(deleteNode);
+                cout << "Processing time: " << time << " seconds" << endl;
+                break;
+            }
+               case 4:
                 cout << "Exiting the program..." << endl;
                 return;
             default:
