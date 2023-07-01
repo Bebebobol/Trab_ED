@@ -3,9 +3,9 @@ Esse é trabalho final para a disciplina de Estrutura de Dados. Nosso objetivo n
 modulos que permitam o balanceamento e analíse dela em diversos estágios de completitude.
 
 Os integrantes desse trabalho são:
-\\ Vitória dos Santos Vianna \\
-\\ Esther de Oliveira Costa
-\\ Matheus Medeiros Carvalho da Fonseca
-\\ Lorenzo Aguiar de Alencastro Guimarães
+<br> Vitória dos Santos Vianna
+<br> Esther de Oliveira Costa
+<br> Matheus Medeiros Carvalho da Fonseca
+<br> Lorenzo Aguiar de Alencastro Guimarães
 
 
